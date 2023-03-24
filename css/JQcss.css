@@ -1,0 +1,10 @@
+.hidden {
+    display: none;
+}
+
+.color {
+    color: white;
+    background-color: lightblue;
+    max-width: 200px;
+}
+

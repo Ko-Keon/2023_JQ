@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 자바스크립트를 작성하면 JQuery를 쓰기 위해 먼저 불러옴 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        // 문서 준비 메소드 확인
+        // 문서의 태그가 출력되기 전에 호출하면 값을 가져올 수 없다.
+        console.log($("#header"));
+
+        // 문서 준비 메소드 확인
+        // 문서가 다 준비된 이후에 코드 실행
+        $(function(){
+            console.log($("#header"));
+        });
+    </script>
+</head>
+<body>
+    <h1 id="header">JQuery</h1>
+    <button id="button">JQ 접근 이벤트</button>
+    <button id="button2">
+        클릭시 안에 내용 안녕으로 변경
+    </button>
+
+    <ul id="list">
+        <li>첫 번째</li>
+        <li>두 번째</li>
+        <li>세 번째</li>
+        <li>네 번째</li>
+    </ul>
+
+    <form id="form">
+        <label for="">이름</label>
+        <input id="name" type="text">
+        <input type="submit" value="제출">
+    </form>
+
+    <ul id="list2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+    <script>
+        // 바닐라 자바스크립트
+        const header = document.querySelector("#header");
+        // JQ
+        const headerJQ = $("#header");
+
+        console.log(header);
+        console.log(headerJQ);
+
+        // JQ 접근하여 버튼에 이벤트
+        $("#button").on("click",function(){
+            // 모든 속성에 메소드로 접근하여 값 할당
+            headerJQ.text("버튼을 눌렀습니다");
+            // 메소드로 클래스 바로접근
+            headerJQ.addClass();
+            headerJQ.removeClass();
+        });
+
+        const button2 = $("#button2")
+        $("#button2").on("click",function(){
+            button2.text("안녕")
+        })
+
+        // JQ CSS 선택자 (QuerySelector에서 사용 가능)
+        const ul = $("#list");
+        // 부모의 자식들 중에서 그 위치에 있는 값을 찾을 때 사용
+        console.log($("#list li:eq(0)")); // <li>첫 번쨰</li>
+        // 부모의 자식들 중에서 그 위치보다 큰 위치에 있는 값
+        console.log($("#list li:gt(1)"));
+
+        // JQ 메소드의 특징
+        // JQ는 속성에 직접 접근하지않고 메소드로 값을 가져오거나 수정
+
+        // 값 수정(setter)
+        $("#header").text("글자를 수정합니다");
+        // 값 가져옴(getter)
+        console.log($("header").text());
+
+        // form, input의 값을 가져오기 위한 메소드 val()
+        $("#name").val("값을 입력하였습니다.");
+        console.log($("#name").val());
+
+        // JQ 메소드체이닝
+        // JQ를 이용하여 객체의 값을 변경한 후
+        // 다른 메소드를 이용해서 계속 변경이 가능하다.
+        $("#name").height(60).width(60);
+
+        // JQ를 이용한 생성/추가
+        const p = $("<p>");
+        p.text("값을 입력 - 생성된 태그");
+        $("body").append(p);
+        // 삭제
+        // p.remove();
+
+        // JQ를 이용한 노드탐색
+        // 부모, 형제, 자식 태그를 메소드로 찾을 수 있다.
+        // 메소드 체이닝이 적용되어 메소드 뒤에 연결하여 계속 찾을 수 있다.
+        // 부모 : parent() / 형제 : next(), prev() 
+        // 자식 : children(), find():선택자
+
+        // JQ에서 추가된 필터링 메소드
+        // .first(), .last(), .eq(), .filter()를 통해
+        // children()을 통해 자식들 중에서 원하는 값을 찾음
+        console.log($("#list").children().first()); // 첫번 째
+        console.log($("#list").children().eq(1)); // 인덱스1, 두번 쨰
+        console.log($("#list").children().filter(":eq(2)")); // 인덱스2, 세번 쨰
+        
+        // list2 안에 내용 변경 실습
+        ($("#list2").children().eq(0).text("list시작"));
+        ($("#list2").children().eq(1).text("JQ를 통해 작성중입니다."));
+        ($("#list2").children().eq(2).text("세번 쨰 li 태그입니다"));
+
+
+
+
+    </script>
+
+</body>
+</html>
